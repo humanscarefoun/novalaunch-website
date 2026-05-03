@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { MonitorSmartphone, LayoutDashboard, Search, Webhook } from 'lucide-react';
+import { DottedSurface } from '../components/DottedSurface';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,9 +16,10 @@ export default function Services() {
   return (
     <motion.section 
       initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-      className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}
+      className="section" style={{ minHeight: '80vh', paddingTop: '160px', position: 'relative' }}
     >
-      <div className="container">
+      <DottedSurface />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <motion.div initial="hidden" animate="visible" variants={containerVariants}>
           <motion.h1 variants={itemVariants} style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)' }}>
             Our <span className="text-gradient">Services</span>
