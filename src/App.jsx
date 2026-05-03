@@ -132,6 +132,7 @@ function App() {
           </Link>
           
           <nav className="nav">
+            <Link to="/">Home</Link>
             <Link to="/services">Services</Link>
             <Link to="/products">Products</Link>
             <Link to="/process">Process</Link>
