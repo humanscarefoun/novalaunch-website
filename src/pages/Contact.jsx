@@ -27,13 +27,15 @@ export default function Contact() {
               Ready to deploy your business globally? Secure your spot in our development queue. We respond to all inquiries within 24 hours.
             </motion.p>
             <motion.div variants={itemVariants} style={{ marginTop: '2rem' }}>
-              <div style={{ marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '1.5rem' }}>
                 <strong style={{ color: 'var(--color-accent)' }}>Email</strong><br/>
-                <a href="mailto:hello@novalaunch.com" style={{ color: 'var(--color-text)', textDecoration: 'none', fontSize: '1.5rem', fontWeight: 600 }}>hello@novalaunch.com</a>
+                <a href="mailto:amitabhthakur856@gmail.com" style={{ color: 'var(--color-text)', textDecoration: 'none', fontSize: '1.5rem', fontWeight: 600 }}>amitabhthakur856@gmail.com</a>
               </div>
-              <div>
-                <strong style={{ color: 'var(--color-accent)' }}>Global Support</strong><br/>
-                <span style={{ color: 'var(--color-text)', fontSize: '1.5rem', fontWeight: 600 }}>+1 (555) 123-4567</span>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <strong style={{ color: 'var(--color-accent)' }}>Phone / WhatsApp</strong><br/>
+                <a href="https://wa.me/919616892024" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-text)', textDecoration: 'none', fontSize: '1.5rem', fontWeight: 600 }}>
+                  +91 9616892024
+                </a>
               </div>
             </motion.div>
           </div>

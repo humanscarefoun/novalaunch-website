@@ -181,8 +181,12 @@ function App() {
               </div>
               
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontWeight: 500, color: 'var(--color-text)' }}>hello@novalaunch.com</div>
-                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>Global Contact Number</div>
+                <div style={{ fontWeight: 500, color: 'var(--color-text)' }}>
+                  <a href="mailto:amitabhthakur856@gmail.com" style={{ textDecoration: 'none', color: 'inherit' }}>amitabhthakur856@gmail.com</a>
+                </div>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
+                  <a href="https://wa.me/919616892024" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>+91 9616892024</a>
+                </div>
               </div>
             </div>
             
