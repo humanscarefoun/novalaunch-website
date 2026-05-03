@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MonitorSmartphone, LayoutDashboard, Search, Webhook } from 'lucide-react';
+import { MonitorSmartphone, LayoutDashboard, Search, Webhook, Bot, Zap } from 'lucide-react';
 import { DottedSurface } from '../components/DottedSurface';
 
 const containerVariants = {
@@ -28,7 +28,7 @@ export default function Services() {
             We engineer premium digital infrastructures. Unlike traditional agencies, we provide an all-in-one ecosystem that scales seamlessly.
           </motion.p>
 
-          <motion.div variants={containerVariants} className="grid-2" style={{ marginTop: '4rem' }}>
+          <motion.div variants={containerVariants} className="grid-3" style={{ marginTop: '4rem' }}>
             {/* Service 1 */}
             <motion.div variants={itemVariants} whileHover={{ scale: 1.03, y: -10 }} className="feature-card" style={{ background: 'var(--color-bg-muted)', border: '1px solid rgba(150,150,150,0.1)' }}>
               <div className="feature-icon" style={{ background: 'var(--color-bg)' }}><MonitorSmartphone size={32} /></div>
@@ -55,6 +55,20 @@ export default function Services() {
               <div className="feature-icon" style={{ background: 'var(--color-bg)' }}><Webhook size={32} /></div>
               <h3>API Integrations</h3>
               <p>Seamlessly connect your CRM, payment gateways (Stripe), and third-party tools directly into your digital infrastructure.</p>
+            </motion.div>
+
+            {/* Service 5 */}
+            <motion.div variants={itemVariants} whileHover={{ scale: 1.03, y: -10 }} className="feature-card" style={{ background: 'var(--color-bg-muted)', border: '1px solid rgba(150,150,150,0.1)' }}>
+              <div className="feature-icon" style={{ background: 'var(--color-bg)' }}><Bot size={32} /></div>
+              <h3>Agentic AI Integration</h3>
+              <p>Deploy autonomous AI agents tailored to your business logic. From 24/7 intelligent customer support to automated complex workflow pipelines.</p>
+            </motion.div>
+
+            {/* Service 6 */}
+            <motion.div variants={itemVariants} whileHover={{ scale: 1.03, y: -10 }} className="feature-card" style={{ background: 'var(--color-bg-muted)', border: '1px solid rgba(150,150,150,0.1)' }}>
+              <div className="feature-icon" style={{ background: 'var(--color-bg)' }}><Zap size={32} /></div>
+              <h3>Next-Gen Technologies</h3>
+              <p>We build with cutting-edge tools: WebGL, Three.js 3D physics, Framer Motion, and edge computing for a truly mind-blowing user experience.</p>
             </motion.div>
           </motion.div>
         </motion.div>
