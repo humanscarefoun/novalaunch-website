@@ -87,62 +87,25 @@ const Terms = () => (
   </section>
 );
 
-// Funny Easter Egg Component
-const FunnyPopup = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [message, setMessage] = useState("");
-  
-  const jokes = [
-    "Are we launching yet? My coffee is getting cold! ☕",
-    "Psst... the 'Ocean' theme is my favorite. 🌊 Don't tell the others.",
-    "Help! I'm trapped inside a React useEffect hook! 😱",
-    "Did you know? If you toggle themes too fast, absolutely nothing bad happens. 🔄",
-    "I'm just a random popup living my best life. 🎈",
-    "404 Error: Motivation not found. Just kidding, let's build! 🚀",
-    "Beep boop. I am definitely a human and not a randomized array of strings. 🤖",
-    "You look like someone who needs more animations! ✨"
-  ];
+// Retro Superhero Landing Intro Component
+const IntroAnimation = () => {
+  const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
-    // Randomly show the popup every 15-30 seconds
-    const scheduleNextPopup = () => {
-      const nextTime = Math.random() * 15000 + 15000; // 15 to 30 seconds
-      setTimeout(() => {
-        setMessage(jokes[Math.floor(Math.random() * jokes.length)]);
-        setIsVisible(true);
-        
-        // Hide after 5 seconds
-        setTimeout(() => {
-          setIsVisible(false);
-          scheduleNextPopup();
-        }, 5000);
-      }, nextTime);
-    };
+    // The total animation (drop + shake + text) takes about 1.8s
+    // Fade out after 2 seconds
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, 2500);
 
-    scheduleNextPopup();
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: isVisible ? '30px' : '-150px',
-      left: '30px',
-      background: 'var(--color-bg)',
-      border: '2px solid var(--color-accent)',
-      borderRadius: 'var(--radius-lg)',
-      padding: '1rem',
-      boxShadow: 'var(--shadow-xl)',
-      zIndex: 99999,
-      maxWidth: '250px',
-      transition: 'bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-      display: 'flex',
-      gap: '10px',
-      alignItems: 'flex-start'
-    }}>
-      <div style={{ fontSize: '24px' }}>🤡</div>
-      <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', fontWeight: 500 }}>
-        {message}
-      </div>
+    <div className={`intro-container screen-shake ${introDone ? 'fade-out' : ''}`}>
+      <div className="impact-crater"></div>
+      <div className="superhero">🦸‍♂️</div>
+      <div className="crash-text">BAM!</div>
     </div>
   );
 };
@@ -182,7 +145,11 @@ function App() {
     };
 
     // Initial observe and mutation observer for dynamic pages
-    observeElements();
+    // Delay observer slightly so it doesn't trigger during the intro screen
+    setTimeout(() => {
+      observeElements();
+    }, 2500);
+
     const mutationObserver = new MutationObserver(observeElements);
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
@@ -198,9 +165,9 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="app" style={{ '--mouse-x': `${mousePosition.x}px`, '--mouse-y': `${mousePosition.y}px` }}>
+        <IntroAnimation />
         <div className="noise-bg"></div>
         <div className="spotlight"></div>
-        <FunnyPopup />
 
         {/* Header Layout */}
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
