@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 const containerVariants = {
@@ -38,6 +38,74 @@ const products = [
   }
 ];
 
+const TiltCard = ({ product }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth out the motion
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
+
+  // Map mouse position to rotation angle
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      variants={itemVariants}
+      style={{ perspective: 1200, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="product-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      >
+        <div className="product-image-container" style={{ transform: "translateZ(50px)" }}>
+          <motion.div 
+            className="product-image-placeholder" 
+            style={{ backgroundImage: `url("${product.img}")` }}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+          ></motion.div>
+          <div className="product-overlay">
+            <button className="btn btn-accent">Live Preview <ArrowRight size={16} style={{marginLeft: '4px'}} /></button>
+          </div>
+        </div>
+        <div className="product-details" style={{ transform: "translateZ(30px)" }}>
+          <h3>{product.title}</h3>
+          <p>{product.desc}</p>
+          <div className="product-tags">
+            {product.tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export default function Products() {
   return (
     <motion.section 
@@ -60,26 +128,7 @@ export default function Products() {
 
           <motion.div variants={containerVariants} className="products-grid" style={{ marginTop: '4rem' }}>
             {products.map((product, idx) => (
-              <motion.div key={idx} variants={itemVariants} whileHover={{ y: -15, scale: 1.02 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="product-card">
-                <div className="product-image-container">
-                  <motion.div 
-                    className="product-image-placeholder" 
-                    style={{ backgroundImage: `url("${product.img}")` }}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                  ></motion.div>
-                  <div className="product-overlay">
-                    <button className="btn btn-accent">Live Preview <ArrowRight size={16} style={{marginLeft: '4px'}} /></button>
-                  </div>
-                </div>
-                <div className="product-details">
-                  <h3>{product.title}</h3>
-                  <p>{product.desc}</p>
-                  <div className="product-tags">
-                    {product.tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
-                  </div>
-                </div>
-              </motion.div>
+              <TiltCard key={idx} product={product} />
             ))}
           </motion.div>
         </motion.div>
