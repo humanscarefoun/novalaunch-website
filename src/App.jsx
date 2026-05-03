@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Home from './pages/Home';
+import Services from './pages/Services';
+import Products from './pages/Products';
+import Process from './pages/Process';
+import Contact from './pages/Contact';
 import './App.css';
 
 const themes = [
@@ -17,75 +22,51 @@ function ScrollToTop() {
   return null;
 }
 
-// Minimal Pages for Router
-const Services = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
-    <div className="container">
-      <h1 className="animate-in">Our Services</h1>
-      <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
-        We engineer premium digital infrastructures. Unlike traditional agencies, we provide an all-in-one ecosystem that scales seamlessly. Our core services include high-converting web applications, robust CMS dashboards, and scalable API integrations built on modern stacks.
-      </p>
-    </div>
-  </section>
-);
-
-const Products = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
-    <div className="container">
-      <h1 className="animate-in">Premium Themes</h1>
-      <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
-        Explore our showcase of excellence. From SaaS analytics dashboards to Fintech marketing sites, our themes are designed to perform, convert, and inspire. Each theme includes built-in dark modes, responsive layouts, and interactive animations.
-      </p>
-    </div>
-  </section>
-);
-
-const Process = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
-    <div className="container">
-      <h1 className="animate-in">The Blueprint</h1>
-      <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
-        From concept to launch in exactly 14 days. Our milestone-driven development cycle guarantees precision. Days 1-3: Brand mapping and architecture. Days 4-10: Frontend and backend build. Days 11-14: Quality assurance and handover.
-      </p>
-    </div>
-  </section>
-);
-
-const Contact = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
-    <div className="container">
-      <h1 className="animate-in">Get in Touch</h1>
-      <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
-        Ready to deploy your business globally? Secure your spot in our development queue.
-        <br/><br/>
-        <strong>Email:</strong> hello@novalaunch.com<br/>
-        <strong>Phone:</strong> Global Contact Number
-      </p>
-    </div>
-  </section>
-);
-
 const Privacy = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
+  <motion.section 
+    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+    className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}
+  >
     <div className="container">
       <h1 className="animate-in">Privacy Policy</h1>
       <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
         Your privacy is our priority. We design our systems with security at the core, ensuring your data is handled with the utmost care and compliance.
       </p>
     </div>
-  </section>
+  </motion.section>
 );
 
 const Terms = () => (
-  <section className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}>
+  <motion.section 
+    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+    className="section" style={{ minHeight: '80vh', paddingTop: '160px' }}
+  >
     <div className="container">
       <h1 className="animate-in">Terms of Service</h1>
       <p className="animate-in delay-100" style={{ maxWidth: '800px', marginTop: '2rem' }}>
         By using our services, you agree to our comprehensive delivery guarantee and milestone terms. We believe in complete transparency and operational excellence.
       </p>
     </div>
-  </section>
+  </motion.section>
 );
+
+// Wrapper for AnimatePresence to work with react-router
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/process" element={<Process />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 // Retro Superhero Landing Intro Component
 const IntroAnimation = () => {
@@ -179,15 +160,7 @@ function App() {
 
         {/* Route Definitions */}
         <main style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/process" element={<Process />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-          </Routes>
+          <AnimatedRoutes />
         </main>
 
         {/* Footer Layout */}

@@ -26,7 +26,12 @@ const staggerContainer = {
 
 export default function Home() {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* 1. Hero Section */}
       <section className="hero section">
         <div className="container">
@@ -269,6 +274,6 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </section>
-    </>
+    </motion.div>
   );
 }
