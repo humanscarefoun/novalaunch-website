@@ -134,8 +134,19 @@ export function DottedSurface({ className = '', ...props }) {
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none fixed inset-0 z-[-1] opacity-60 ${className}`}
-      style={{ overflow: 'hidden' }}
+      style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        bottom: 0, 
+        zIndex: -1, 
+        pointerEvents: 'none', 
+        opacity: 0.6,
+        overflow: 'hidden',
+        ...props.style 
+      }}
+      className={className}
       {...props}
     />
   );
