@@ -130,34 +130,9 @@ function App() {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
 
-    // Scroll Observer for Animations
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible');
-      });
-    }, observerOptions);
-
-    // Function to observe elements
-    const observeElements = () => {
-      const animatedElements = document.querySelectorAll('.animate-in:not(.is-visible)');
-      animatedElements.forEach(el => observer.observe(el));
-    };
-
-    // Initial observe and mutation observer for dynamic pages
-    // Delay observer slightly so it doesn't trigger during the intro screen
-    setTimeout(() => {
-      observeElements();
-    }, 2500);
-
-    const mutationObserver = new MutationObserver(observeElements);
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
-      observer.disconnect();
-      mutationObserver.disconnect();
     };
   }, []);
 
